@@ -1,4 +1,4 @@
-# elm-pages-starter-express
+# Elm Pages Starter Template with Express adapter
 
 This is an example of using [elm-pages 3.0](https://github.com/dillonkearns/elm-pages) with [express.js](https://expressjs.com/).
 
