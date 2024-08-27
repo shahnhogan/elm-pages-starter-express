@@ -5,6 +5,8 @@ export default async (req, res, next) => {
   try {
     const renderResult = await elmPages.render(reqToElmPagesJson(req));
     const { kind, headers, statusCode, body, isBase64Encoded } = renderResult;
+    if ("Content-Type" in headers)
+      headers["Content-Type"] = headers["Content-Type"].join(" ");
     res.status(statusCode).set(headers);
     if (kind === "bytes" || kind == "api-response") {
       if (isBase64Encoded) {
