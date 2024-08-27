@@ -1,4 +1,5 @@
 import * as elmPages from "./elm-pages.mjs";
+import * as util from "util";
 
 export default async (req, res, next) => {
   try {
@@ -11,7 +12,11 @@ export default async (req, res, next) => {
       res.send(body);
     }
   } catch (error) {
-    console.error(error);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(util.inspect(error, { depth: null, colors: true }));
+    } else {
+      console.error(error);
+    }
     res
       .status(500)
       .send("<body><h1>Error</h1><pre>Unexpected Error</pre></body>");
