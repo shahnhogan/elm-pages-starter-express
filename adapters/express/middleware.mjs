@@ -3,10 +3,14 @@ import * as elmPages from "./elm-pages.mjs";
 export default async (req, res, next) => {
   try {
     const renderResult = await elmPages.render(reqToElmPagesJson(req));
-    const { headers, statusCode, body } = renderResult;
+    const { kind, headers, statusCode, body, isBase64Encoded } = renderResult;
     res.status(statusCode).set(headers);
-    if (renderResult.kind === "bytes") {
-      res.send(Buffer.from(body));
+    if (kind === "bytes" || kind == "api-response") {
+      if (isBase64Encoded) {
+        res.send(Buffer.from(body, "base64"));
+      } else {
+        res.send(Buffer.from(body));
+      }
     } else {
       res.send(body);
     }
