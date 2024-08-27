@@ -4,8 +4,6 @@ This project demonstrates how to use [elm-pages 3.0](https://github.com/dillonke
 
 You can see it in action at <https://elm-pages-v3-express.fly.dev/>.
 
-Source code is available at <https://github.com/shahnhogan/elm-pages-starter-express>.
-
 See the discussion on elm-pages adapters at <https://github.com/dillonkearns/elm-pages/discussions/378>.
 
 ## Key Features
