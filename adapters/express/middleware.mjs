@@ -1,6 +1,10 @@
 import * as elmPages from "./elm-pages.mjs";
 
-export default async (req, res, next) => {
+export default async (
+  /** @type {import("express").Request} */ req,
+  /** @type {import("express").Response} */ res,
+  /** @type {import("express").NextFunction} */ next
+) => {
   try {
     const renderResult = await elmPages.render(reqToElmPagesJson(req));
     const { headers, statusCode, body } = renderResult;
@@ -19,7 +23,7 @@ export default async (req, res, next) => {
   next();
 };
 
-const reqToElmPagesJson = (req) => {
+const reqToElmPagesJson = (/** @type {import("express").Request} */ req) => {
   const { body, headers, method } = req;
   const rawUrl = `${req.protocol}://${req.headers.host}${req.originalUrl}`;
   
@@ -33,9 +37,12 @@ const reqToElmPagesJson = (req) => {
   };
 };
 
-const isFormData = (headers) => headers['content-type'] === 'application/x-www-form-urlencoded';
+const isFormData = (
+  /** @type {import("http").IncomingHttpHeaders} */ headers
+) => headers['content-type'] === 'application/x-www-form-urlencoded';
 
-const toFormData = (body) => typeof body === 'string'
+const toFormData = (/** @type {{ [s: string]: any; } | string} */ body) =>
+  typeof body === 'string'
     ? body
     : Object.entries(body).reduce((formData, [key, value]) => {
         formData.append(key, value);
