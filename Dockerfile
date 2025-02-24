@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=16.20.0
+ARG NODE_VERSION=20
 FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Node.js"
@@ -17,11 +17,10 @@ ENV NODE_ENV=production
 FROM base as build
 
 # Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install -y python pkg-config build-essential curl
+RUN apt-get update -qq && apt-get install -y python3 pkg-config build-essential curl
 
 # Install lamdera
-RUN curl https://static.lamdera.com/bin/lamdera-1.1.0-linux-x86_64 -o /usr/local/bin/lamdera && \
+RUN curl https://static.lamdera.com/bin/lamdera-1.3.2-linux-x86_64 -o /usr/local/bin/lamdera && \
     chmod a+x /usr/local/bin/lamdera
 
 # Install node modules
